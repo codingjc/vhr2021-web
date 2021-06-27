@@ -19,6 +19,8 @@
 </template>
 
 <script>
+  // import {postKeyValueRequest} from "../util/api";
+
   export default {
     name: "Login",
     data() {
@@ -38,7 +40,14 @@
       submitLogin(){
         this.$refs.loginForm.validate((valid) => {
           if (valid) {
-            alert('submit!');
+            // alert('submit!');
+            this.postKeyValueRequest("/doLogin", this.loginForm).then(resp => {
+              if (resp) {
+                window.sessionStorage.setItem("user", JSON.stringify(resp.data))
+                // 获取当前router对象
+                this.$router.replace('/home');
+              }
+            })
           } else {
             this.$message.error('请输入用户名和密码!');
             return false;
