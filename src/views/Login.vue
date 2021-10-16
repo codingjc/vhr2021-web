@@ -11,7 +11,7 @@
         <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码" @keydown.enter.native="submitLogin"></el-input>
       </el-form-item>
 
-      <el-checkbox class="loginRemember" v-model="checked"></ el-checkbox>
+      <el-checkbox class="loginRemember" v-model="checked"></el-checkbox>
 
       <el-button type="primary" style="width: 100%;" @click="submitLogin">登陆</el-button>
     </el-form>
@@ -42,7 +42,7 @@
             this.postKeyValueRequest("/doLogin", this.loginForm).then(resp => {
               if (resp) {
                 window.sessionStorage.setItem("user", JSON.stringify(resp.data))
-                // 获取当前router对象
+                // 获取当前router对象；replace：浏览器不可后退；push：浏览器可后退
                 this.$router.replace('/home');
               }
             })
