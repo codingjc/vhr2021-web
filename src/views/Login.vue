@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="back" :style="back">
     <el-form :rules="roles" ref="loginForm" :model="loginForm" class="loginContainer">
-      <h3 class="loginTitle">系统登陆</h3>
+      <h3 class="loginTitle">Vhr</h3>
 
       <el-form-item prop="username">
         <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
@@ -11,7 +11,7 @@
         <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码" @keydown.enter.native="submitLogin"></el-input>
       </el-form-item>
 
-      <el-checkbox class="loginRemember" v-model="checked"></el-checkbox>
+      <el-checkbox class="loginRemember" v-model="checked">记住我</el-checkbox>
 
       <el-button type="primary" style="width: 100%;" @click="submitLogin">登陆</el-button>
     </el-form>
@@ -24,15 +24,20 @@
     name: "Login",
     data() {
       return {
+        // back:{
+        //   backgroundImage: "url('../assets/naozhong.jpeg')",
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundSize: '100% 100%'
+        // },
         loginForm:{
-          username: 'admin',
-          password: '123'
+          username: '郑老师',
+          password: '12345'
         },
         roles: {
           username: [{required: true, message:'请输入用户名', trigger: 'blur'}],
           password: [{required: true, message:'请输入密码', trigger: 'blur'}]
         },
-        checked: true
+        checked: false
       }
     },
     methods: {
@@ -43,7 +48,12 @@
               if (resp) {
                 window.sessionStorage.setItem("user", JSON.stringify(resp.data))
                 // 获取当前router对象；replace：浏览器不可后退；push：浏览器可后退
-                this.$router.replace('/home');
+                let toPath = this.$route.query.redirect;
+                if (toPath == '/' || toPath == undefined) {
+                  this.$router.replace('/home');
+                } else {
+                  this.$router.replace(toPath);
+                }
               }
             })
           } else {
@@ -66,6 +76,7 @@
      background: #fff;
      border: 1px solid #eaeaea;
      box-shadow: 0 0 25px #cac6c6;
+     height: 300px;
    }
    .loginTitle{
      margin: 15px auto 20px auto;

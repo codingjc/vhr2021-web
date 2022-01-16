@@ -2,7 +2,7 @@
   <el-container>
     <el-header class="homeHeader">
       <!--   标题   -->
-      <div class="title">vhr</div>
+      <div class="title">财务管理系统</div>
       <!--  下拉菜单  -->
       <el-dropdown class="userInfo" @command="commandHandle">
         <span class="el-dropdown-link">
@@ -20,10 +20,10 @@
     <el-container>
       <!--   左侧菜单   -->
       <el-aside width="200px">
-        <el-menu router>
-          <el-submenu index="1" v-for="(item, index) in this.$router.options.routes" v-if="!item.hidden" :key="index">
+        <el-menu router unique-opened>
+          <el-submenu :index="index+''" v-for="(item, index) in routes" v-if="!item.hidden" :key="index">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i style="color: #5ac3ff; margin-right: 5px" :class="item.iconCls"></i>
               <span>{{item.name}}</span>
             </template>
             <el-menu-item v-for="(child, indexj) in item.children" :index="child.path" :key="indexj">{{child.name}}</el-menu-item>
@@ -32,7 +32,15 @@
       </el-aside>
 
       <el-main>
+        <!--    面包屑    -->
+        <el-breadcrumb separator-class="el-icon-arrow-right" v-show="this.$router.currentRoute.path != '/home'">
+          <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
+        </el-breadcrumb>
+
+        <div class="homeWelcome" v-show="this.$router.currentRoute.path == '/home'">欢迎来到微人事</div>
         <router-view/>
+
       </el-main>
     </el-container>
   </el-container>
@@ -44,6 +52,11 @@
     data() {
       return {
         user: JSON.parse(window.sessionStorage.getItem("user"))
+      }
+    },
+    computed:{
+      routes(){
+        return this.$store.state.routes;
       }
     },
     methods: {
@@ -59,6 +72,7 @@
               if (resp) {
                 this.$router.push('/')
                 window.sessionStorage.removeItem('user')
+                this.$store.commit('initRoules', [])
               }
             })
           }).catch(() => {
@@ -74,6 +88,12 @@
 </script>
 
 <style>
+  .homeWelcome{
+    text-align: center;
+    font-size: 30px;
+    color: #409eff;
+    padding-top: 50px;
+  }
  .homeHeader{
    background-color: #409eff;
    display: flex;
@@ -89,6 +109,7 @@
  }
  .homeHeader .userInfo{
    cursor: pointer;
+   color: #eaeaea;
  }
  .el-dropdown-link{
    display: flex;

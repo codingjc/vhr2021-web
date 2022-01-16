@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import Home from '../views/Home'
-import Test1 from "../views/Test1";
+import ReportImport from '../views/ReportImport'
 import Test2 from "../views/Test2";
 
 Vue.use(VueRouter)
@@ -15,23 +15,23 @@ const routes = [
     hidden: true
   }, {
     path: '/home',
-    name: 'Home',
+    name: '报表',
     component: Home,
     hidden: true
   },
   {
     path: '/home',
-    name: 'Home',
+    name: '报表',
     component: Home,
     children: [
       {
-        path: '/test1',
-        name: 'Test1',
-        component: Test1
+        path: '/reportImport',
+        name: '报表导入',
+        component: ReportImport
       },
       {
-        path: '/test2',
-        name: 'Test2',
+        path: '/test22',
+        name: '报表分析',
         component: Test2
       }
     ]
