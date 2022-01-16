@@ -38,8 +38,8 @@
           <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
         </el-breadcrumb>
 
-        <div class="homeWelcome" v-show="this.$router.currentRoute.path == '/home'">欢迎来到微人事</div>
-        <router-view/>
+        <div class="homeWelcome" v-show="this.$router.currentRoute.path == '/home'">欢迎来到我的世界</div>
+        <router-view class="homeRouteView"/>
 
       </el-main>
     </el-container>
@@ -120,5 +120,8 @@
    height: 48px;
    border-radius: 25px;
    margin-left: 5px;
+ }
+ .homeRouteView{
+   margin-top: 10px;
  }
 </style>
