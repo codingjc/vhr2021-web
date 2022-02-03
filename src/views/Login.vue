@@ -1,5 +1,5 @@
 <template>
-  <div class="back" :style="back">
+  <div class="back">
     <el-form :rules="roles" ref="loginForm" :model="loginForm" class="loginContainer">
       <h3 class="loginTitle">Vhr</h3>
 
@@ -24,14 +24,9 @@
     name: "Login",
     data() {
       return {
-        // back:{
-        //   backgroundImage: "url('../assets/naozhong.jpeg')",
-        //   backgroundRepeat: "no-repeat",
-        //   backgroundSize: '100% 100%'
-        // },
         loginForm:{
-          username: '郑老师',
-          password: '12345'
+          username: 'admin',
+          password: '123'
         },
         roles: {
           username: [{required: true, message:'请输入用户名', trigger: 'blur'}],

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs v-model="activeName" type="border-card">
+    <el-tabs v-model="activeName" type="card">
       <el-tab-pane label="部门管理" name="first">
         <span slot="label"><i class="el-icon-date"></i>部门管理</span>
         <DepMana></DepMana>
@@ -24,7 +24,7 @@
       name: "SysBasic",
       data() {
         return {
-          activeName: 'secord'
+          activeName: 'fourth'
         }
       },
       components: {

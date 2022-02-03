@@ -2,7 +2,7 @@
   <el-container>
     <el-header class="homeHeader">
       <!--   标题   -->
-      <div class="title">财务管理系统</div>
+      <div class="title">人力管理系统</div>
       <!--  下拉菜单  -->
       <el-dropdown class="userInfo" @command="commandHandle">
         <span class="el-dropdown-link">

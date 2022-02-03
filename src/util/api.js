@@ -1,10 +1,18 @@
 import axios from "axios";
 import { Message } from 'element-ui';
+import router from '../router'
 
 // 响应拦截器
 axios.interceptors.response.use(success => {
     // 业务错误
     if(success.status && success.status == 200 && success.data.status == 500){
+        Message.error({message: success.data.msg})
+        return;
+    }
+
+    // 尚未登陆
+    if(success.status && success.status == 200 && success.data.status == 401){
+        router.replace("/")
         Message.error({message: success.data.msg})
         return;
     }
@@ -19,6 +27,7 @@ axios.interceptors.response.use(success => {
         Message.error({message: '权限不足'})
     }else if (error.response.status == 401) {
         Message.error({message: '尚未登陆'})
+        router.replace("/")
     } else {
         if (error.response.data.msg) {
             Message.error({message: error.response.data.msg})
