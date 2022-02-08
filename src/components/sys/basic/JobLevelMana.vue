@@ -8,7 +8,7 @@
           v-model="jobLevel.name">
       </el-input>
 
-      <el-select v-model="jobLevel.jobLevel" placeholder="职称等级" size="small" style="margin-left: 10px">
+      <el-select v-model="jobLevel.titleLevel" placeholder="职称等级" size="small" style="margin-left: 10px">
         <el-option
             v-for="item in titleLevels"
             :key="item"
@@ -161,7 +161,7 @@ export default {
       jobLevels:[],
       jobLevel: {
         name:'',
-        jobLevel:''
+        titleLevel:''
       },
       titleLevels: [
           '正高级',
@@ -195,11 +195,11 @@ export default {
       })
     },
     addJobLevel(){
-      if (this.jobLevel.name && this.jobLevel.jobLevel) {
+      if (this.jobLevel.name && this.jobLevel.titleLevel) {
         this.postRequest('/system/basic/job/add', this.jobLevel).then(resp => {
           if(resp){
             this.jobLevel.name = '';
-            this.jobLevel.jobLevel = '';
+            this.jobLevel.titleLevel = '';
             this.initJoblevel();
           }
         })

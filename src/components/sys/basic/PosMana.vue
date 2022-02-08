@@ -21,7 +21,7 @@
           el-table-column
           @selection-change="handleSelectionChange"
           size="small"
-          style="width: 761px">
+          style="width: 961px">
         <el-table-column
             type="selection"
             width="55">
@@ -40,6 +40,15 @@
             prop="createDate"
             label="创建时间"
             width="200">
+        </el-table-column>
+        <el-table-column
+            prop="enabled"
+            label="是否启用"
+            width="200">
+          <template slot-scope="scope">
+            <el-tag size="small" type="success" v-if="scope.row.enabled">已启用</el-tag>
+            <el-tag size="small" type="warn" v-else>未启用</el-tag>
+          </template>
         </el-table-column>
         <el-table-column
             label="操作"
@@ -78,8 +87,29 @@
     <!--  对话框  -->
     <el-dialog title="修改职位" :visible.sync="dialogFormVisible" width="30%">
       <div>
-        <el-tag>职位名称</el-tag>
-        <el-input class="updatePosInput" size="small" v-model="updatePos.name"></el-input>
+        <table>
+          <tr>
+            <td>
+              <el-tag>职位名称</el-tag>
+            </td>
+            <td>
+              <el-input v-model="updatePos.name" size="small" ></el-input>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <el-tag>是否启用</el-tag>
+            </td>
+            <td>
+              <el-switch
+                  v-model="updatePos.enabled"
+                  active-text="启用"
+                  inactive-text="禁用">
+              </el-switch>
+            </td>
+          </tr>
+        </table>
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button size="small" @click="dialogFormVisible = false">取 消</el-button>
@@ -104,7 +134,8 @@ export default {
       positions: [],
       dialogFormVisible: false,
       updatePos: {
-        name: ''
+        name: '',
+        enabled: false
       },
       multipleSelection:[]
     }
@@ -120,7 +151,9 @@ export default {
       })
     },
     handleEdit(index, row){
-      Object.assign(this.updatePos, row)
+      console.log(this.updatePos.name)
+      this.updatePos = Object.assign(this.updatePos, row)
+      console.log(this.updatePos.name)
       this.dialogFormVisible = true;
     },
     handleDelete(index, row){
@@ -219,11 +252,6 @@ export default {
 
   .pageHelper{
     margin-left: 350px;
-  }
-
-  .updatePosInput{
-    width: 10px;
-    margin-left: 10px;
   }
 
   .footer{
