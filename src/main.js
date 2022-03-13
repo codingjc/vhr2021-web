@@ -6,12 +6,14 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'font-awesome/css/font-awesome.min.css'
 
+
 import {postKeyValueRequest} from "@/util/api";
 import {postRequest} from "@/util/api";
 import {getRequest} from "@/util/api";
 import {putRequest} from "@/util/api";
 import {deleteRequest} from "@/util/api";
 import {initMenu} from "@/util/menus";
+import BaiduMap from 'vue-baidu-map';
 
 Vue.prototype.postKeyValueRequest = postKeyValueRequest
 Vue.prototype.getRequest = getRequest
@@ -20,7 +22,8 @@ Vue.prototype.putRequest = putRequest
 Vue.prototype.deleteRequest = deleteRequest
 
 Vue.config.productionTip = false
-Vue.use(ElementUI);
+Vue.use(ElementUI, {size: 'small'});
+Vue.use(BaiduMap, {ak: '3mG9TtuFtEY7SK3070gZ2QUvOsyN7zR7'})
 
 //路由前置导航守卫
 router.beforeEach((to, from, next) => {
