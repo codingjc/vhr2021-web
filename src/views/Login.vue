@@ -1,6 +1,10 @@
 <template>
   <div class="back">
-    <el-form :rules="roles" ref="loginForm" :model="loginForm" class="loginContainer">
+    <el-form v-loading="loading"
+             :rules="roles"
+             ref="loginForm"
+             :model="loginForm"
+             class="loginContainer">
       <h3 class="loginTitle">Vhr</h3>
 
       <el-form-item prop="username">
@@ -24,6 +28,7 @@
     name: "Login",
     data() {
       return {
+        loading: false,
         loginForm:{
           username: 'admin',
           password: '123'
@@ -39,7 +44,9 @@
       submitLogin(){
         this.$refs.loginForm.validate((valid) => {
           if (valid) {
+            this.loading = true;
             this.postKeyValueRequest("/doLogin", this.loginForm).then(resp => {
+              this.loading = false;
               if (resp) {
                 window.sessionStorage.setItem("user", JSON.stringify(resp.data))
                 // 获取当前router对象；replace：浏览器不可后退；push：浏览器可后退
